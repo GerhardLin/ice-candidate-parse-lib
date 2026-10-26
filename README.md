@@ -57,3 +57,10 @@ A candidate with a trailing extension keyword and no value
 (`… typ host generation`) is rejected, not silently truncated. If you are
 feeding this parser SDP you assembled by hand, make sure every extension has
 its value.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
